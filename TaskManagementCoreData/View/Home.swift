@@ -82,6 +82,21 @@ struct Home: View {
         }
         // To Fill the SafeArea we need to ignore the top Safe Area, as a result the view will be moved up, to avoid that retrieve the safeArea top value and add as a top padding
         .ignoresSafeArea(.container, edges: .top)
+        // MARK: Add Button
+        .overlay (
+            
+            Button(action: {
+                
+            }, label: {
+                Image(systemName: "plus")
+                    .foregroundColor(.white)
+                    .padding()
+                    .background(Color.black, in: Circle())
+            })
+            .padding()
+            
+            , alignment: .bottomTrailing
+        )
     }
     
     // MARK: Tasks View
@@ -90,24 +105,10 @@ struct Home: View {
         
         LazyVStack(spacing: 20) {
             
-            if let tasks = taskModel.filteredTasks {
+            // Converting object as Our Task Model
+            DynamicFilteredView(dateToFilter: taskModel.currentDay) { (object: Task) in
                 
-                if tasks.isEmpty {
-                    
-                    Text("No tasks found!!!")
-                        .font(.system(size: 16))
-                        .fontWeight(.light)
-                        .offset(y: 100)
-                } else {
-                    
-                    ForEach(tasks) { task in
-                        TaskCardView(task: task)
-                    }
-                }
-            } else {
-                // MARK: Progress View
-                ProgressView()
-                    .offset(y: 100)
+                TaskCardView(task: object)
             }
         }
         .padding()

@@ -15,6 +15,8 @@
 		E4CF9BCE29E8B46100FF6C71 /* TaskManagementCoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E4CF9BCC29E8B46100FF6C71 /* TaskManagementCoreData.xcdatamodeld */; };
 		E4CF9BD729E8B65000FF6C71 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CF9BD629E8B65000FF6C71 /* Home.swift */; };
 		E4CF9BD929E8B65E00FF6C71 /* TaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CF9BD829E8B65E00FF6C71 /* TaskViewModel.swift */; };
+		E4CF9BDB29E8B86E00FF6C71 /* DynamicFilteredView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CF9BDA29E8B86E00FF6C71 /* DynamicFilteredView.swift */; };
+		E4CF9BDD29E8BC8800FF6C71 /* NewTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CF9BDC29E8BC8800FF6C71 /* NewTask.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +29,8 @@
 		E4CF9BCD29E8B46100FF6C71 /* TaskManagementCoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TaskManagementCoreData.xcdatamodel; sourceTree = "<group>"; };
 		E4CF9BD629E8B65000FF6C71 /* Home.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		E4CF9BD829E8B65E00FF6C71 /* TaskViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskViewModel.swift; sourceTree = "<group>"; };
+		E4CF9BDA29E8B86E00FF6C71 /* DynamicFilteredView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicFilteredView.swift; sourceTree = "<group>"; };
+		E4CF9BDC29E8BC8800FF6C71 /* NewTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTask.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +87,8 @@
 			isa = PBXGroup;
 			children = (
 				E4CF9BD629E8B65000FF6C71 /* Home.swift */,
+				E4CF9BDA29E8B86E00FF6C71 /* DynamicFilteredView.swift */,
+				E4CF9BDC29E8BC8800FF6C71 /* NewTask.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -166,9 +172,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				E4CF9BCB29E8B46100FF6C71 /* Persistence.swift in Sources */,
+				E4CF9BDB29E8B86E00FF6C71 /* DynamicFilteredView.swift in Sources */,
 				E4CF9BD929E8B65E00FF6C71 /* TaskViewModel.swift in Sources */,
 				E4CF9BC429E8B46000FF6C71 /* ContentView.swift in Sources */,
 				E4CF9BD729E8B65000FF6C71 /* Home.swift in Sources */,
+				E4CF9BDD29E8BC8800FF6C71 /* NewTask.swift in Sources */,
 				E4CF9BCE29E8B46100FF6C71 /* TaskManagementCoreData.xcdatamodeld in Sources */,
 				E4CF9BC229E8B46000FF6C71 /* TaskManagementCoreDataApp.swift in Sources */,
 			);
