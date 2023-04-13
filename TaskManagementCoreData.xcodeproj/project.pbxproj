@@ -13,6 +13,8 @@
 		E4CF9BC929E8B46100FF6C71 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E4CF9BC829E8B46100FF6C71 /* Preview Assets.xcassets */; };
 		E4CF9BCB29E8B46100FF6C71 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CF9BCA29E8B46100FF6C71 /* Persistence.swift */; };
 		E4CF9BCE29E8B46100FF6C71 /* TaskManagementCoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E4CF9BCC29E8B46100FF6C71 /* TaskManagementCoreData.xcdatamodeld */; };
+		E4CF9BD729E8B65000FF6C71 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CF9BD629E8B65000FF6C71 /* Home.swift */; };
+		E4CF9BD929E8B65E00FF6C71 /* TaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CF9BD829E8B65E00FF6C71 /* TaskViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +25,8 @@
 		E4CF9BC829E8B46100FF6C71 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		E4CF9BCA29E8B46100FF6C71 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		E4CF9BCD29E8B46100FF6C71 /* TaskManagementCoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TaskManagementCoreData.xcdatamodel; sourceTree = "<group>"; };
+		E4CF9BD629E8B65000FF6C71 /* Home.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
+		E4CF9BD829E8B65E00FF6C71 /* TaskViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +59,8 @@
 		E4CF9BC029E8B46000FF6C71 /* TaskManagementCoreData */ = {
 			isa = PBXGroup;
 			children = (
+				E4CF9BD529E8B61A00FF6C71 /* ViewModel */,
+				E4CF9BD429E8B61600FF6C71 /* View */,
 				E4CF9BC129E8B46000FF6C71 /* TaskManagementCoreDataApp.swift */,
 				E4CF9BC329E8B46000FF6C71 /* ContentView.swift */,
 				E4CF9BC529E8B46100FF6C71 /* Assets.xcassets */,
@@ -71,6 +77,22 @@
 				E4CF9BC829E8B46100FF6C71 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		E4CF9BD429E8B61600FF6C71 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E4CF9BD629E8B65000FF6C71 /* Home.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		E4CF9BD529E8B61A00FF6C71 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				E4CF9BD829E8B65E00FF6C71 /* TaskViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -144,7 +166,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				E4CF9BCB29E8B46100FF6C71 /* Persistence.swift in Sources */,
+				E4CF9BD929E8B65E00FF6C71 /* TaskViewModel.swift in Sources */,
 				E4CF9BC429E8B46000FF6C71 /* ContentView.swift in Sources */,
+				E4CF9BD729E8B65000FF6C71 /* Home.swift in Sources */,
 				E4CF9BCE29E8B46100FF6C71 /* TaskManagementCoreData.xcdatamodeld in Sources */,
 				E4CF9BC229E8B46000FF6C71 /* TaskManagementCoreDataApp.swift in Sources */,
 			);
