@@ -86,7 +86,7 @@ struct Home: View {
         .overlay (
             
             Button(action: {
-                
+                taskModel.addNewTask.toggle()
             }, label: {
                 Image(systemName: "plus")
                     .foregroundColor(.white)
@@ -97,6 +97,9 @@ struct Home: View {
             
             , alignment: .bottomTrailing
         )
+        .sheet(isPresented: $taskModel.addNewTask) {
+            NewTask()
+        }
     }
     
     // MARK: Tasks View
@@ -267,7 +270,6 @@ extension View {
     
     // MARK: Safe Area
     func getSaveArea() -> UIEdgeInsets {
-        // Film 15:08 -> https://youtu.be/nKHrsrmA4lM?t=908
         guard let screen = UIApplication.shared.connectedScenes.first as? UIWindowScene else {
             return .zero
         }

@@ -20,6 +20,9 @@ class TaskViewModel: ObservableObject {
     // Filtering the tasks for the date user is selected
     @Published var filteredTasks: [Task]?
     
+    // MARK: New Task View
+    @Published var addNewTask: Bool = false
+    
     // MARK: Initializing
     init() {
         fetchCurrentWeek()
