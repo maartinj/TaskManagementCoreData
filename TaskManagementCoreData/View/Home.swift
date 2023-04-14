@@ -102,8 +102,13 @@ struct Home: View {
             
             , alignment: .bottomTrailing
         )
+        // And whenever the New Task view is dismissed, we're the clearing the Edit Task data in the View Model (to avoid unnecessary bugs)
         .sheet(isPresented: $taskModel.addNewTask) {
+            // Clearing Edit Data
+            taskModel.editTask = nil
+        } content: {
             NewTask()
+                .environmentObject(taskModel)
         }
     }
     
@@ -127,23 +132,58 @@ struct Home: View {
     func TaskCardView(task: Task) -> some View {
         
         // MARK: Since CoreData Values will Give Optional data
-        HStack(alignment: .top, spacing: 30) {
+        HStack(alignment: editButton?.wrappedValue == .active ? .center : .top, spacing: 30) {
             
-            VStack(spacing: 10) {
-                Circle()
-                    .fill(taskModel.isCurrentHour(date: task.taskDate ?? Date()) ? (task.isCompleted ? .green : .black) : .clear)
-                    .frame(width: 15, height: 15)
-                    .background(
-                        
-                        Circle()
-                            .stroke(.black, lineWidth: 1)
-                            .padding(-3)
-                    )
-                    .scaleEffect(!taskModel.isCurrentHour(date: task.taskDate ?? Date()) ? 0.8 : 1)
+            // If Edit mode enabled then showing Delete Button
+            // If the EditButton is Active then hiding the Timeline View and showing the Edit Actions (Delete, Update)
+            if editButton?.wrappedValue == .active {
                 
-                Rectangle()
-                    .fill(.black)
-                    .frame(width: 3)
+                // Edit Button for Current and Future Tasks
+                // Update Task button will only be visible if the task is current/future but not for the past tasks
+                VStack(spacing: 10) {
+                    
+                    if task.taskDate?.compare(Date()) == .orderedDescending || Calendar.current.isDateInToday(task.taskDate ?? Date()) {
+                        
+                        Button {
+                            // In our New Task view it will check if the view model contains any edit task data, if so then it will display the already stored task info and allows the user to edit them (but not date)
+                            taskModel.editTask = task
+                            taskModel.addNewTask.toggle()
+                        } label: {
+                            Image(systemName: "pencil.circle.fill")
+                                .font(.title)
+                                .foregroundColor(.primary)
+                        }
+                    }
+                    
+                    Button {
+                        // MARK: Deleting Task
+                        context.delete(task)
+                        
+                        // Saving
+                        try? context.save()
+                    } label: {
+                        Image(systemName: "minus.circle.fill")
+                            .font(.title)
+                            .foregroundColor(.red)
+                    }
+                }
+            } else {
+                VStack(spacing: 10) {
+                    Circle()
+                        .fill(taskModel.isCurrentHour(date: task.taskDate ?? Date()) ? (task.isCompleted ? .green : .black) : .clear)
+                        .frame(width: 15, height: 15)
+                        .background(
+                            
+                            Circle()
+                                .stroke(.black, lineWidth: 1)
+                                .padding(-3)
+                        )
+                        .scaleEffect(!taskModel.isCurrentHour(date: task.taskDate ?? Date()) ? 0.8 : 1)
+                    
+                    Rectangle()
+                        .fill(.black)
+                        .frame(width: 3)
+                }
             }
             
             VStack {
@@ -174,7 +214,7 @@ struct Home: View {
                         if !task.isCompleted {
                             
                             Button {
-                                // Updating the Task Status
+                                // MARK: Updating Task Status
                                 task.isCompleted = true
                                 
                                 // Saving

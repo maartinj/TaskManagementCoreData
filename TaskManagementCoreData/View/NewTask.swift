@@ -18,6 +18,8 @@ struct NewTask: View {
     
     // MARK: Core Data Context
     @Environment(\.managedObjectContext) var context
+    
+    @EnvironmentObject var taskModel: TaskViewModel
     var body: some View {
         
         NavigationView {
@@ -36,12 +38,16 @@ struct NewTask: View {
                     Text("Task Description")
                 }
                 
-                Section {
-                    DatePicker("", selection: $taskDate)
-                        .datePickerStyle(.graphical)
-                        .labelsHidden()
-                } header: {
-                    Text("Task Date")
+                // Disabling Date for Edit Mode
+                if taskModel.editTask == nil {
+                    
+                    Section {
+                        DatePicker("", selection: $taskDate)
+                            .datePickerStyle(.graphical)
+                            .labelsHidden()
+                    } header: {
+                        Text("Task Date")
+                    }
                 }
             }
             .listStyle(.insetGrouped)
@@ -56,12 +62,17 @@ struct NewTask: View {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button("Save") {
                         
-                        // Film 10:10
-                        // Simply create a new Entity object with managed context and set the values for the object nad finally save the context, this will create a new Object in our Core Data
-                        let task = Task(context: context)
-                        task.taskTitle = taskTitle
-                        task.taskDescription = taskDescription
-                        task.taskDate = taskDate
+                        if let task = taskModel.editTask {
+                            
+                            task.taskTitle = taskTitle
+                            task.taskDescription = taskDescription
+                        } else {
+                            // Simply create a new Entity object with managed context and set the values for the object nad finally save the context, this will create a new Object in our Core Data
+                            let task = Task(context: context)
+                            task.taskTitle = taskTitle
+                            task.taskDescription = taskDescription
+                            task.taskDate = taskDate
+                        }
                         
                         // Saving
                         try? context.save()
@@ -76,7 +87,13 @@ struct NewTask: View {
                         dismiss()
                     }
                 }
-                
+            }
+            // Loading Task data if from Edit
+            .onAppear {
+                if let task = taskModel.editTask {
+                    taskTitle = task.taskTitle ?? ""
+                    taskDescription = task.taskDescription ?? ""
+                }
             }
         }
     }

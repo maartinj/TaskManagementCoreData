@@ -23,6 +23,10 @@ class TaskViewModel: ObservableObject {
     // MARK: New Task View
     @Published var addNewTask: Bool = false
     
+    // MARK: Edit Data
+    // The logic is simple when ever the edit button is clicked it will store the current task in our view model and triggers the New Task View
+    @Published var editTask: Task?
+    
     // MARK: Initializing
     init() {
         fetchCurrentWeek()
@@ -75,6 +79,11 @@ class TaskViewModel: ObservableObject {
         let hour = calendar.component(.hour, from: date)
         let currentHour = calendar.component(.hour, from: Date())
         
-        return hour == currentHour
+        // An updating the currentHour function to check if the task date is today!
+        // Old: return hour == currentHour
+        
+        let isToday = calendar.isDateInToday(date)
+        
+        return (hour == currentHour && isToday)
     }
 }

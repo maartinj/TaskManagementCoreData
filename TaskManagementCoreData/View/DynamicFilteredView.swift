@@ -25,7 +25,10 @@ struct DynamicFilteredView<Content: View, T>: View where T: NSManagedObject {
         let calendar = Calendar.current
         
         let today = calendar.startOfDay(for: dateToFilter)
-        let tomorrow = calendar.date(byAdding: .day, value: 1, to: dateToFilter)!
+        // You can see that the current hour for tomorrow task is also highlighting and when ever the app is closed and reopened the tasks are not fetched properly!
+//        let tomorrow = calendar.date(byAdding: .day, value: 1, to: dateToFilter)!
+        // Creating the proper tomorrow date!
+        let tomorrow = calendar.date(byAdding: .day, value: 1, to: today)!
         
         // Filter Key
         let filterKey = "taskDate"
@@ -35,7 +38,9 @@ struct DynamicFilteredView<Content: View, T>: View where T: NSManagedObject {
         
         
         // Initializing Request with NSPredicate
-        _request = FetchRequest(entity: T.entity(), sortDescriptors: [], predicate: predicate)
+        // Adding Sort
+        // Since we need the task in defending order so we're adding a sort descriptor to our @FetchRequest
+        _request = FetchRequest(entity: T.entity(), sortDescriptors: [.init(keyPath: \Task.taskDate, ascending: false)], predicate: predicate)
         self.content = content
     }
     
