@@ -10,6 +10,11 @@ import SwiftUI
 struct Home: View {
     @StateObject var taskModel: TaskViewModel = TaskViewModel()
     @Namespace var animation
+    
+    // MARK: Core Data Context
+    @Environment(\.managedObjectContext) var context
+    // MARK: Edit Button Context
+    @Environment(\.editMode) var editButton
      
     var body: some View {
         
@@ -123,9 +128,10 @@ struct Home: View {
         
         // MARK: Since CoreData Values will Give Optional data
         HStack(alignment: .top, spacing: 30) {
+            
             VStack(spacing: 10) {
                 Circle()
-                    .fill(taskModel.isCurrentHour(date: task.taskDate ?? Date()) ? .black : .clear)
+                    .fill(taskModel.isCurrentHour(date: task.taskDate ?? Date()) ? (task.isCompleted ? .green : .black) : .clear)
                     .frame(width: 15, height: 15)
                     .background(
                         
@@ -162,38 +168,31 @@ struct Home: View {
                 if taskModel.isCurrentHour(date: task.taskDate ?? Date()) {
                     
                     // MARK: Team Members
-                    HStack(spacing: 0) {
-                        
-                        HStack(spacing: -10) {
-                            
-                            ForEach(["User1", "User2", "User3"], id: \.self) { user in
-                                
-                                Image(user)
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fill)
-                                    .frame(width: 45, height: 45)
-                                    .clipShape(Circle())
-                                    .background(
-                                    
-                                        Circle()
-                                            .stroke(.black, lineWidth: 5)
-                                    )
-                            }
-                        }
-                        .hLeading()
+                    HStack(spacing: 12) {
                         
                         // MARK: Check Button
-                        Button {
+                        if !task.isCompleted {
                             
-                        } label: {
-                            
-                            Image(systemName: "checkmark")
-                                .foregroundStyle(.black)
-                                .padding(10)
-                                .background(Color.white, in: RoundedRectangle(cornerRadius: 10))
-                            
+                            Button {
+                                // Updating the Task Status
+                                task.isCompleted = true
+                                
+                                // Saving
+                                try? context.save()
+                            } label: {
+                                
+                                Image(systemName: "checkmark")
+                                    .foregroundStyle(.black)
+                                    .padding(10)
+                                    .background(Color.white, in: RoundedRectangle(cornerRadius: 10))
+                                
+                            }
                         }
-
+                        
+                        Text(task.isCompleted ? "Marked as Completed" : "Mark Task as Completed")
+                            .font(.system(size: task.isCompleted ? 14 : 16, weight: .light))
+                            .foregroundColor(task.isCompleted ? .gray : .white)
+                            .hLeading()
                     }
                     .padding(.top)
                 }
@@ -226,16 +225,8 @@ struct Home: View {
             }
             .hLeading()
             
-            Button {
-                
-            } label: {
-                
-                Image("Profile")
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: 45, height: 45)
-                    .clipShape(Circle())
-            }
+            // MARK: Edit Button
+            EditButton()
         }
         .padding()
         .padding(.top, getSaveArea().top)
